@@ -1,49 +1,83 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
-import Question from "./Question";
 import "./App.css";
+import Question from "./Question";
 
-function App() {
-  const [start, setStart] = useState(false);
+const App = () => {
+  const [startGame, setStartGame] = useState(false);
   const [questions, setQuestions] = useState([]);
-  const [selected, setSelected] = useState(false);
-  function isSelected(e) {
-    console.log(e.target.id);
-
+  function handleClick(e) {
+    setQuestions((oldQuestions) =>
+      oldQuestions.map((oldQuestion) => {
+        // if the question is already selected, return it
+        if (oldQuestion.isSelected) return oldQuestion;
+        // if the question is not selected, check if the answer is correct
+        if (
+          // check if the question id is the same as the parent element id
+          oldQuestion.questionId === e.target.parentElement.parentElement.id
+        ) {
+          // check if the answer is correct
+          if (oldQuestion.correct_answer === e.target.innerText) {
+            e.target.classList.add("true");
+          } else {
+            e.target.classList.add("false");
+          }
+          // return the question with isSelected set to true
+          return { ...oldQuestion, isSelected: true };
+        }
+        // if the question is not selected and the question id is not the same as the parent element id, return the question
+        return oldQuestion;
+      })
+    );
   }
-  async function fetchQuestions() {
+  async function getQuestions() {
     const response = await fetch(
       "https://opentdb.com/api.php?amount=10&category=23&difficulty=easy&type=multiple"
     );
     const data = await response.json();
-    setQuestions(data.results);
+    const result = data.results.map((question) => {
+      return {
+        questionId: nanoid(),
+        question: question.question,
+        // shuffle the options array
+        options: [...question.incorrect_answers, question.correct_answer].sort(
+          (a, b) => 0.5 - Math.random()
+        ),
+        correct_answer: question.correct_answer,
+        isSelected: false,
+        isCorrect: false,
+      };
+    });
+    return result;
   }
-
   useEffect(() => {
-    fetchQuestions();
-  }, [start]);
+    getQuestions().then((data) => setQuestions(data));
+  }, [startGame]);
+
   return (
     <div className="App">
-      {!start ? (
+      {!startGame ? (
         <div className="start-page">
-          <h1>Do you know HISTORY</h1>
-          <p>Know more of past with simple quiz</p>
-          <button onClick={() => setStart(true)}>Start</button>
+          <div>
+            <h1>Hist-Quiz</h1>
+            <p>Check your knowledge of History</p>
+          </div>
+          <button onClick={() => setStartGame(true)}>Start Quiz</button>
         </div>
       ) : (
         <div className="quiz-page">
           <div className="questions">
-            {/* <Question /> */}
             {questions.map((question) => {
               return (
                 <Question
-                  id={nanoid()}
+                  key={question.questionId}
+                  id={question.questionId}
                   question={question.question}
-                  option1={question.correct_answer}
-                  option2={question.incorrect_answers[0]}
-                  option3={question.incorrect_answers[1]}
-                  option4={question.incorrect_answers[2]}
-                  isSelected={isSelected}
+                  option1={question.options[0]}
+                  option2={question.options[1]}
+                  option3={question.options[2]}
+                  option4={question.options[3]}
+                  handleClick={handleClick}
                 />
               );
             })}
@@ -52,6 +86,6 @@ function App() {
       )}
     </div>
   );
-}
+};
 
 export default App;

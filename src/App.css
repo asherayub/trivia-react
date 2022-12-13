@@ -1,66 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Lato&display=swap");
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 body {
+  height: 100vh;
+  width: 100vw;
   background-color: #f5f7fb;
   display: grid;
   place-items: center;
-  height: 100vh;
+  font-family: "Lato", sans-serif;
   overflow-x: hidden;
 }
-
+::selection {
+  background-color: #8a2be2;
+  color: #fff;
+}
+/* START PAGE */
 .start-page {
+  height: 350px;
+  width: 90vw;
+  max-width: 350px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 300px;
-  width: 400px;
 }
 .start-page h1 {
-  font-size: 3rem;
-  text-align: center;
-  margin: 0;
+  font-size: 4.5rem;
+  font-family: "La Belle Aurore", cursive;
 }
 .start-page p {
   font-size: 1.3rem;
 }
 .start-page button {
-  width: 193px;
-  height: 52px;
-  background-color: #4d5b9e;
-  color: #fff;
+  padding: 1rem 2rem;
   border: none;
-  border-radius: 15px;
-  font-size: 1.3rem;
+  border-radius: 2em;
+  background-color: #8a2be2;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
   cursor: pointer;
+  transition: background-color 300ms cubic-bezier(0.44, 0.29, 0.6, 1.22);
 }
+.start-page button:active,
+.start-page button:hover {
+  outline: none;
+  background-color: #6418ac;
+}
+/* START PAGE END */
 
-/* QUESTIONS */
+/* QUIZ PAGE */
 .questions {
-  width: 90vw;
-  margin: 1em;
-}
-.question h2 {
-  color: #384172;
-  margin-bottom: 0.5em;
+  padding: 2em;
 }
 .question {
-  margin: 1.5em 0;
-  padding: 1.5em 0;
-  border-bottom: 1px solid #384172;
+  padding-block: 2em;
+  border-bottom: 1px solid #892be286;
 }
-.question .options {
+.question h3 {
+  color: #300a54;
+  margin: 0.5em 0;
+}
+.options {
   display: flex;
+  gap: 1em;
   flex-wrap: wrap;
-  gap: 1rem;
+  margin: 1.5em 0 0 0;
 }
-.question .option {
-  padding: 0.3em 1.2em;
-  border: 2px solid #4d5b9e;
+.options p {
+  border: 2px solid #8a2be2;
+  padding: 0.3em 1.5em;
   border-radius: 1em;
-  color: #384172;
   cursor: pointer;
+  font-weight: 600;
+}
+.options p:hover,
+.options p:active {
+  background-color: #8a2be2;
+  color: #fff;
+  transition: background-color 300ms cubic-bezier(0.44, 0.29, 0.6, 1.22);
+}
+.true {
+  background-color: #94d7a2;
+  color: #000;
+}
+.false {
+  background-color: #f8bcbc;
+}
+@media (max-width: 550px) {
+  .options {
+    margin: 0.5em auto;
+    width: 70vw;
+    flex-direction: column;
+    text-align: center;
+  }
+  .question {
+    text-align: center;
+  }
 }
