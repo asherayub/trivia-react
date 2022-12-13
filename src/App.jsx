@@ -25,7 +25,7 @@ const App = () => {
           } else {
             e.target.classList.add("false");
           }
-          // return the question with isSelected set to true
+          // return the question with isSelected set to true.
           return { ...oldQuestion, isSelected: true };
         }
         // if the question is not selected and the question id is not the same as the parent element id, return the question
@@ -76,13 +76,20 @@ const App = () => {
     <div className="App">
       {gameEnded && (
         <div className="endgame-page">
-          <h3 style={{textAlign: 'center'}}>You Scored: {score} <br />🐱</h3>
+          <h3 style={{ textAlign: "center" }}>
+            You Scored: {score} <br />
+            🐱
+          </h3>
           <button onClick={restartGame}>Restart</button>
         </div>
       )}
       {!startGame ? (
         <div className="start-page">
-          <div className="github"><a href="https://www.github.com/asherayub" target='_blank'>GitHub</a></div>
+          <div className="github">
+            <a href="https://www.github.com/asherayub" target="_blank">
+              GitHub
+            </a>
+          </div>
           <div>
             <h1>Comp-Witch</h1>
             <p>Answer simple computer related questions</p>
