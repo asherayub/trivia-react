@@ -18,6 +18,13 @@ body {
   color: #fff;
 }
 /* START PAGE */
+.github {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 0.5em 1em;
+  font-weight: bold;
+}
 .start-page {
   height: 350px;
   width: 90vw;
@@ -48,7 +55,9 @@ body {
   transition: background-color 300ms cubic-bezier(0.44, 0.29, 0.6, 1.22);
 }
 .start-page button:active,
-.endgame-page button:active {
+.start-page button:hover,
+.endgame-page button:active,
+.endgame-page button:hover {
   outline: none;
   background-color: #6418ac;
 }
@@ -77,14 +86,11 @@ body {
   padding: 0.3em 1.5em;
   border-radius: 1em;
   cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
   font-weight: 600;
 }
-.options p:hover,
-.options p:active {
-  background-color: #8a2be2;
-  color: #fff;
-  transition: background-color 300ms cubic-bezier(0.44, 0.29, 0.6, 1.22);
-}
+
 .true {
   background-color: #94d7a2;
   color: #000;
@@ -93,10 +99,10 @@ body {
   background-color: #f8bcbc;
 }
 @media (max-width: 550px) {
-  .start-page{
+  .start-page {
     text-align: center;
   }
-  .start-page h1{
+  .start-page h1 {
     font-size: 3.5rem;
   }
   .options {

@@ -82,6 +82,7 @@ const App = () => {
       )}
       {!startGame ? (
         <div className="start-page">
+          <div className="github"><a href="https://www.github.com/asherayub" target='_blank'>GitHub</a></div>
           <div>
             <h1>Comp-Witch</h1>
             <p>Answer simple computer related questions</p>
