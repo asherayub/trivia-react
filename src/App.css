@@ -32,9 +32,11 @@ body {
   font-family: "La Belle Aurore", cursive;
 }
 .start-page p {
-  font-size: 1.3rem;
+  font-size: 1rem;
+  text-align: center;
 }
-.start-page button {
+.start-page button,
+.endgame-page button {
   padding: 1rem 2rem;
   border: none;
   border-radius: 2em;
@@ -46,7 +48,7 @@ body {
   transition: background-color 300ms cubic-bezier(0.44, 0.29, 0.6, 1.22);
 }
 .start-page button:active,
-.start-page button:hover {
+.endgame-page button:active {
   outline: none;
   background-color: #6418ac;
 }
@@ -91,6 +93,12 @@ body {
   background-color: #f8bcbc;
 }
 @media (max-width: 550px) {
+  .start-page{
+    text-align: center;
+  }
+  .start-page h1{
+    font-size: 3.5rem;
+  }
   .options {
     margin: 0.5em auto;
     width: 70vw;
@@ -100,4 +108,24 @@ body {
   .question {
     text-align: center;
   }
+}
+/* ENDGAME PAGE */
+.endgame-page {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 350px;
+  height: 350px;
+  background-color: #fff;
+  box-shadow: 0 0 10px 0 #00000033;
+  border-radius: 1em;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+}
+.endgame-page h3 {
+  font-size: 2rem;
 }

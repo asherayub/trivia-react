@@ -6,6 +6,8 @@ import Question from "./Question";
 const App = () => {
   const [startGame, setStartGame] = useState(false);
   const [questions, setQuestions] = useState([]);
+  const [score, setScore] = useState(0);
+  const [gameEnded, setGameEnded] = useState(false);
   function handleClick(e) {
     setQuestions((oldQuestions) =>
       oldQuestions.map((oldQuestion) => {
@@ -19,6 +21,7 @@ const App = () => {
           // check if the answer is correct
           if (oldQuestion.correct_answer === e.target.innerText) {
             e.target.classList.add("true");
+            setScore(score + 1);
           } else {
             e.target.classList.add("false");
           }
@@ -30,9 +33,18 @@ const App = () => {
       })
     );
   }
+
+  // check if game has ended or not
+  useEffect(() => {
+    if (questions.length > 0) {
+      if (questions.every((question) => question.isSelected)) {
+        setGameEnded(true);
+      }
+    }
+  }, [questions]);
   async function getQuestions() {
     const response = await fetch(
-      "https://opentdb.com/api.php?amount=10&category=23&difficulty=easy&type=multiple"
+      "https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple"
     );
     const data = await response.json();
     const result = data.results.map((question) => {
@@ -54,13 +66,25 @@ const App = () => {
     getQuestions().then((data) => setQuestions(data));
   }, [startGame]);
 
+  function restartGame() {
+    setStartGame(false);
+    setQuestions([]);
+    setScore(0);
+    setGameEnded(false);
+  }
   return (
     <div className="App">
+      {gameEnded && (
+        <div className="endgame-page">
+          <h3 style={{textAlign: 'center'}}>You Scored: {score} <br />🐱</h3>
+          <button onClick={restartGame}>Restart</button>
+        </div>
+      )}
       {!startGame ? (
         <div className="start-page">
           <div>
-            <h1>Hist-Quiz</h1>
-            <p>Check your knowledge of History</p>
+            <h1>Comp-Witch</h1>
+            <p>Answer simple computer related questions</p>
           </div>
           <button onClick={() => setStartGame(true)}>Start Quiz</button>
         </div>
